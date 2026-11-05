@@ -44,17 +44,23 @@ impl Solution {
             }
 
             let mut third = nums_cloned.len() - 1;
+            let target = -nums_cloned[first];
 
             for second in first + 1..nums_cloned.len() {
-                if second > 0 && nums_cloned[second] == nums_cloned[second - 1] {
+                if second > first + 1 && nums_cloned[second] == nums_cloned[second - 1] {
                     continue;
                 }
 
-                while (second< third) && (nums_cloned[first] + nums_cloned[second] + nums_cloned[third]) > 0 {
+                while (second < third)
+                    && (nums_cloned[first] + nums_cloned[second] + nums_cloned[third]) > 0
+                {
                     third -= 1;
                 }
-                
-                if Self::check(nums_cloned[first], nums_cloned[second], nums_cloned[third]) {
+
+                if second == third {
+                    break;
+                }
+                if nums_cloned[second] + nums_cloned[third] == target {
                     let tuple = vec![nums_cloned[first], nums_cloned[second], nums_cloned[third]];
                     ret.push(tuple);
                 }
